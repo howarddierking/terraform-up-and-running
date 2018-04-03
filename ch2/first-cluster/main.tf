@@ -15,6 +15,9 @@ variable "server_port" {
 
 data "aws_availability_zones" "all" {}
 
+
+
+
 # --- resources ---
 
 resource "aws_launch_configuration" "example" {
@@ -34,6 +37,9 @@ resource "aws_launch_configuration" "example" {
   }
 }
 
+
+
+
 resource "aws_security_group" "instance" {
   name = "allow-terraform-instance-http"
   vpc_id = "vpc-cc64f0b7"
@@ -49,6 +55,9 @@ resource "aws_security_group" "instance" {
     create_before_destroy = true
   }
 }
+
+
+
 
 resource "aws_autoscaling_group" "example" {
   launch_configuration = "${aws_launch_configuration.example.id}"
@@ -68,6 +77,9 @@ resource "aws_autoscaling_group" "example" {
     propagate_at_launch = true
   }
 }
+
+
+
 
 resource "aws_elb" "example" {
   name = "terraform-elb-example"
@@ -93,6 +105,9 @@ resource "aws_elb" "example" {
   }
 }
 
+
+
+
 resource "aws_security_group" "elb" {
   name = "terraform-example-elb"
   vpc_id = "vpc-cc64f0b7" # added because not using default VPC
@@ -112,6 +127,9 @@ resource "aws_security_group" "elb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+
+
 
 
 # --- outputs ---
